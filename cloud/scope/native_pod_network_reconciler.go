@@ -35,6 +35,13 @@ const (
 	npnCrdName          = "nativepodnetworks.oci.oraclecloud.com"
 )
 
+type NpnWorkloadClientInterface interface {
+	NewWorkloadClient(ctx context.Context) (wlClient client.Client, err error)
+	DeleteNpn(ctx context.Context) error
+	HasNpnCrd(ctx context.Context) (bool, error)
+	GetOrCreateNpn(ctx context.Context) (*unstructured.Unstructured, error)
+}
+
 func (m *MachineScope) NewWorkloadClient(ctx context.Context) (wlClient client.Client, err error) {
 	u := &unstructured.Unstructured{}
 	u.SetGroupVersionKind(schema.GroupVersionKind{
